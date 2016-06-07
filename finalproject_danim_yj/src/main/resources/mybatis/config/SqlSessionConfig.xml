@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<!-- MyBatis  DataSource에 대한 설정 및  SQL 정의 xml 에 대한 매핑
+		spring과 연동시에는 spring 설정에서 DataSource(dbcp) 를 정의한다. 
+-->
+<configuration>	
+	<!-- 사용할 클래스에 대한 별칭을 명시한다.  -->
+	<typeAliases>	
+<!-- 
+	<typeAlias type="org.kosta.finalproject.model.vo.AreaVO" alias="areaVO"/>
+	<typeAlias type="org.kosta.finalproject.model.vo.TerminalVO" alias="terminalVO"/>	
+	<typeAlias type="org.kosta.finalproject.model.vo.StationVO" alias="stationVO"/>
+	<typeAlias type="org.kosta.finalproject.model.vo.BusVO" alias="busVO"/>
+	<typeAlias type="org.kosta.finalproject.model.vo.TrainVO" alias="trainVO"/> -->
+	<package name="org.kosta.finalproject.model.vo"/>
+	</typeAliases>	
+	<!-- mapper.xml 을 명시한다  -->
+	<mappers>	
+
+	<mapper resource="mybatis/config/area.xml"/>	
+	<mapper resource="mybatis/config/station.xml"/>	
+	<mapper resource="mybatis/config/terminal.xml"/>	
+	<mapper resource="mybatis/config/train.xml"/>	
+	<mapper resource="mybatis/config/bus.xml"/>		
+	<mapper resource="mybatis/config/community.xml"/>		
+	<mapper resource="mybatis/config/member.xml"/>	
+	</mappers>
+</configuration>
+
+
+
+
+
+
+
+
+
+
