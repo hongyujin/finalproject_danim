@@ -24,4 +24,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		insert into community(comm_no,timePosted,content,id)
  		values(#{comm_no},sysdate,#{content},#{memberVO.id})
  	</insert>
+ 	
+ 	<update id="updateLike">
+ 		update community set likePosted=likePosted+1 where comm_no=#{value}
+ 	</update>
+ 	
+ 	<select id="findLikeByCommNo" resultType="int">
+ 		select likePosted from community where comm_no=#{value}
+ 	</select>
 </mapper>

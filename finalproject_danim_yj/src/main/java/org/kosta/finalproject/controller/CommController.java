@@ -11,6 +11,7 @@ import org.kosta.finalproject.model.vo.CommunityVO;
 import org.kosta.finalproject.model.vo.MemberVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -32,5 +33,12 @@ public class CommController {
 		paramVO.setMemberVO(new MemberVO("admin"));
 		commService.registerComm(paramVO);
 		return "redirect:community_list.do?rownum=5";
+	}
+	
+	@RequestMapping("comm_updateLike.do")
+	@ResponseBody
+	public int updateCommunity(int commNo){
+		int result = commService.updateLikeResult(commNo);
+		return result;
 	}
 }

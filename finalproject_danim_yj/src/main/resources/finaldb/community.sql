@@ -21,4 +21,4 @@ insert into community(comm_no,timePosted,content,id) values(comm_seq.nextval,sys
 delete community where id='java'
 update community set likePosted=likePosted+1 where id='java' and comm_no=2
 
-select * from spring_board;
+select likePosted from community where comm_no=10; 

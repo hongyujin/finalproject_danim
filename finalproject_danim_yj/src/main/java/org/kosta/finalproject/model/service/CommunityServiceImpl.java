@@ -22,4 +22,10 @@ public class CommunityServiceImpl implements CommunityService {
 	public void registerComm(CommunityVO paramVO){
 		commDAO.registerComm(paramVO);
 	}
+	
+	@Override
+	public int updateLikeResult(int commNo){
+		commDAO.updateLike(commNo);
+		return commDAO.findLikeByCommNo(commNo);
+	}
 }

@@ -10,4 +10,8 @@ public interface CommunityDAO {
 
 	public void registerComm(CommunityVO paramVO);
 
+	public int updateLike(int commNo);
+
+	public int findLikeByCommNo(int commNo);
+
 }

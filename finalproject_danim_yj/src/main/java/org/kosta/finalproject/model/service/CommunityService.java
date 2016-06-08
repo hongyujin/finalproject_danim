@@ -10,4 +10,6 @@ public interface CommunityService {
 
 	public void registerComm(CommunityVO paramVO);
 
+	public int updateLikeResult(int commNo);
+
 }

@@ -12,50 +12,73 @@
 				$("#btn").html("<button type='button' onclick='loadData()'>더보기</button>");
 			}
 		}); //scroll
-	});
+		
+		if("${commList.size()>0}"){
+			if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+				$("#btn").html("<button type='button' onclick='loadData()'>더보기</button>");
+			}
+		}
+		
+		$("#commTable td").click(function() {
+			var likeTD = $(this).parent().children().eq(1);
+			if($(this).text()==likeTD.text()){
+				var commNo = $(this).parent().prev().children().eq(0).text();
+	 			$.ajax({
+					type:"post",
+					url:"comm_updateLike.do",
+					data:"commNo="+commNo,
+					success:function(data){
+						likeTD.html("<input type='image' class='fonti um-heart' alt=' '>"+data);
+					}//success
+				});//ajax
+			}
+		});//table td click
+	});//ready
 	
 	var rn = "${param.rownum}";
  	//var date = "${param.date}";
 	rn = Number(rn);
  	function loadData() {
- 	var page_y = $(document).scrollTop();
-		rn+=5;
-		/* if(date==""){
-			date = new Date();
-			
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-
-            if (month < 10) month = "0" + month;
-            if (day < 10) day = "0" + day;
-
-            var today = year + "-" + month + "-" + day;
-            date = today;
-            //$("#date").attr("value", today);
-		} */
-		if ( window.location.href.indexOf('page_y') != -1 ) {
-	        var match = window.location.href.split('?')[1].split("&")[1].split("=");
-	        $('html, body').scrollTop( match[1] );
-	    }
-		window.location.href = "${initParam.root}community_list.do?page_y=" + page_y+"&rownum="+rn;
+	 	var page_y = $(document).scrollTop();
+			rn+=5;
+			/* if(date==""){
+				date = new Date();
+				
+	            var day = date.getDate();
+	            var month = date.getMonth() + 1;
+	            var year = date.getFullYear();
+	
+	            if (month < 10) month = "0" + month;
+	            if (day < 10) day = "0" + day;
+	
+	            var today = year + "-" + month + "-" + day;
+	            date = today;
+	            //$("#date").attr("value", today);
+			} */
+			if ( window.location.href.indexOf('page_y') != -1 || page_y != -1) {
+		        var match = window.location.href.split('?')[1].split("&")[0].split("=");
+		        $('html, body').scrollTop( match[1] );
+		    }
+			window.location.href = "${initParam.root}community_list.do?page_y=" + page_y+"&rownum="+rn;
 	}
 </script>
-<table border="1">
-	<tr>
+<table border="1" id="commTable">
+	<!-- <tr>
 		<td>글번호</td>
 		<td>작성자</td>
 		<td>작성시간</td>
 		<td>글내용</td>
 		<td>좋아용</td>
-	</tr>
+	</tr> -->
 <c:forEach var="list" items="${commList}">
 	<tr>
 		<td>${list.comm_no}</td>
 		<td>${list.memberVO.id}</td>
 		<td>${list.timePosted}</td>
-		<td>${list.content}</td>
-		<td>${list.likePosted}</td>
+	</tr>
+	<tr>
+		<td colspan="2">${list.content}</td>
+		<td><input type="image" class="fonti um-heart" alt=" " onclick="updateLike('${list.comm_no}')">${list.likePosted}</td>
 	</tr>
 </c:forEach>
 </table>

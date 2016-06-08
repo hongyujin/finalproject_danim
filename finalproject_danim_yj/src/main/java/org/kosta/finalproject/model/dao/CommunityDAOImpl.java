@@ -22,4 +22,14 @@ public class CommunityDAOImpl implements CommunityDAO {
 	public void registerComm(CommunityVO paramVO){
 		template.insert("community.registerComm", paramVO);
 	}
+	
+	@Override
+	public int updateLike(int commNo){
+		return template.update("community.updateLike", commNo);
+	}
+	
+	@Override
+	public int findLikeByCommNo(int commNo){
+		return template.selectOne("community.findLikeByCommNo", commNo);
+	}
 }
