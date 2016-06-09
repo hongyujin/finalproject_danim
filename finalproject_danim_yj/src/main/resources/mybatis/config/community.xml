@@ -9,12 +9,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
  	<select id="getCommlist" resultMap="commRM">
- 		select comm_no,timePosted, content, likePosted,id from(
-			select comm_no,timePosted, content, likePosted,id,ceil(rownum/#{value}) as page from (
-				select comm_no,to_char(timePosted, 'mm-dd am hh:mi:ss') as timePosted, content, likePosted,id from community
+ 		<!-- select comm_no,timePosted, content,id from(
+			select comm_no,timePosted, content,id,ceil(rownum/#{value}) as page from (
+				select comm_no,to_char(timePosted, 'mm-dd am hh:mi:ss') as timePosted, content,id from community
 				order by comm_no desc
 			)
-		)where page=1
+		)where page=1 -->
+		select c.comm_no,c.timePosted, c.content, l.likePosted,c.id from(
+			select comm_no,timePosted, content, id,ceil(rownum/#{value}) as page from (
+				select comm_no,to_char(timePosted, 'mm-dd am hh:mi:ss') as timePosted, content, id from community
+				order by comm_no desc
+			)
+		)c, (select comm_no, count(likePosted) as likePosted from commLike GROUP BY comm_no) l where l.comm_no(+)=c.comm_no and c.page=1
  	</select>
  	
  	<insert id="registerComm" parameterType="communityVO">
@@ -25,11 +31,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  		values(#{comm_no},sysdate,#{content},#{memberVO.id})
  	</insert>
  	
- 	<update id="updateLike">
- 		update community set likePosted=likePosted+1 where comm_no=#{value}
- 	</update>
+ 	<insert id="updateLikePosted" parameterType="commLikeVO">
+ 		insert into commLike(comm_no,id,likePosted) values(#{comm_no},#{id},1)
+ 	</insert>
  	
- 	<select id="findLikeByCommNo" resultType="int">
- 		select likePosted from community where comm_no=#{value}
+ 	<delete id="deleteLikePosted" parameterType="commLikeVO">
+ 		delete commLike where id=#{id} and comm_no=#{comm_no}
+ 	</delete>
+ 	
+ 	<select id="findLikeByNo" parameterType="int" resultType="int">
+ 		select count(likePosted) as likePosted from commLike where comm_no=#{value} GROUP BY comm_no
+ 	</select>
+ 	
+ 	<select id="findLikeByIdAndNo" parameterType="commLikeVO" resultType="int">
+ 		select count(*) from commLike c where comm_no=#{comm_no} and id=#{id}
  	</select>
 </mapper>

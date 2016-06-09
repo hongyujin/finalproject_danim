@@ -2,6 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+ <style>
+      img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+ </style>
+
 <link rel = "stylesheet" type = "text/css" href = "${initParam.root}fontium/css/fontium.css" />
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -20,20 +28,26 @@
 			}
 		}
 		
-		$("#commTable td").click(function() {
-			var likeTD = $(this).parent().children().eq(1);
-			if($(this).text()==likeTD.text()){
-				var commNo = $(this).parent().prev().children().eq(0).text();
-	 			$.ajax({
-					type:"post",
-					url:"comm_updateLike.do",
-					data:"commNo="+commNo,
-					success:function(data){
-						likeTD.html("<input type='image' class='fonti um-heart' alt=' '>"+data);
-					}//success
-				});//ajax
-			}
-		});//table td click
+		if("${sessionScope.mvo}"!=""){
+			$("#commTable td").click(function() {
+				var likeTD = $(this).parent().children().eq(1);
+				if($(this).text()==likeTD.text()){
+					var commNo = $(this).parent().prev().children().eq(0).text();
+		 			$.ajax({
+						type:"post",
+						url:"comm_updateLike.do",
+						data:"commNo="+commNo,
+						success:function(data){
+							if(data==1){
+							likeTD.html("<input type='image' class='fonti um-heart' alt='취소'>"+data);
+							}else{
+							likeTD.html("<input type='image' class='fonti um-heart' alt=' '>"+data);
+							}
+						}//success
+					});//ajax
+				}
+			});//table td click
+		}//session check
 	});//ready
 	
 	var rn = "${param.rownum}";
@@ -72,15 +86,21 @@
 		<td>좋아용</td>
 	</tr> -->
 <c:forEach var="list" items="${commList}">
-	<tr>
+	 <tr>
 		<td>${list.comm_no}</td>
 		<td>${list.memberVO.id}</td>
 		<td>${list.timePosted}</td>
 	</tr>
 	<tr>
-		<td colspan="2">${list.content}<c:if test="${fn:contains(list.content, 'img') }">이거야이거이거</c:if></td>
-		<td><input type="image" class="fonti um-heart" alt=" " onclick="updateLike('${list.comm_no}')">${list.likePosted}</td>
-	</tr>
+		<td colspan="2"  height="100" width="500">${list.content}<br>
+			<c:if test="${fn:contains(list.content, 'img') }"><a href="">상세보기</a></c:if>
+		</td>
+		<td>
+		<c:if test="${sessionScope.mvo!=null }">
+			<input type="image" class="fonti um-heart" alt=" "><!-- onclick="updateLike('${list.comm_no}')" -->
+		</c:if>
+		${list.likePosted }</td>
+		</tr>
 </c:forEach>
 </table>
 <c:if test="${commList.size() >= param.rownum}">

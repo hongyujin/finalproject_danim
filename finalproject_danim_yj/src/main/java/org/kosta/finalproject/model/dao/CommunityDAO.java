@@ -2,6 +2,7 @@ package org.kosta.finalproject.model.dao;
 
 import java.util.List;
 
+import org.kosta.finalproject.model.vo.CommLikeVO;
 import org.kosta.finalproject.model.vo.CommunityVO;
 
 public interface CommunityDAO {
@@ -10,8 +11,14 @@ public interface CommunityDAO {
 
 	public void registerComm(CommunityVO paramVO);
 
-	public int updateLike(int commNo);
+	public List<CommLikeVO> getLikePosted();
 
-	public int findLikeByCommNo(int commNo);
+	public int updateLikePosted(CommLikeVO paramVO);
+
+	public void deleteLikePosted(CommLikeVO paramVO);
+
+	public int findLikeByCommNo(int comm_no);
+
+	public int findLikeByIdAndNo(CommLikeVO paramVO);
 
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.kosta.finalproject.model.vo.CommLikeVO;
 import org.kosta.finalproject.model.vo.CommunityVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
@@ -24,12 +25,31 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 	
 	@Override
-	public int updateLike(int commNo){
-		return template.update("community.updateLike", commNo);
+	public List<CommLikeVO> getLikePosted(){
+		return template.selectList("community.getLikePosted");
 	}
 	
 	@Override
-	public int findLikeByCommNo(int commNo){
-		return template.selectOne("community.findLikeByCommNo", commNo);
+	public int updateLikePosted(CommLikeVO paramVO){
+		return template.insert("community.updateLikePosted",paramVO);
+	}
+	
+	@Override
+	public void deleteLikePosted(CommLikeVO paramVO){
+		template.delete("community.deleteLikePosted",paramVO);
+	}
+
+	@Override
+	public int findLikeByCommNo(int comm_no) {
+		if((template.selectOne("community.findLikeByNo",comm_no))==null){
+			return 0;
+		}
+		return template.selectOne("community.findLikeByNo",comm_no);
+	}
+	
+	
+	@Override
+	public int findLikeByIdAndNo(CommLikeVO paramVO){
+		return template.selectOne("community.findLikeByIdAndNo",paramVO);
 	}
 }
