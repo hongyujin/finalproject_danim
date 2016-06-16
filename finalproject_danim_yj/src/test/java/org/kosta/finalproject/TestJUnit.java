@@ -1,17 +1,14 @@
 package org.kosta.finalproject;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.annotation.Resource;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.kosta.finalproject.model.dao.CommunityDAO;
 import org.kosta.finalproject.model.service.CommunityService;
-import org.kosta.finalproject.model.vo.CommLikeVO;
-import org.kosta.finalproject.model.vo.CommListVO;
-import org.kosta.finalproject.model.vo.CommunityVO;
+import org.kosta.finalproject.model.vo.CommentVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -20,6 +17,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class TestJUnit {
 	@Resource
 	CommunityService service;
+	@Resource
+	CommunityDAO dao;
 	@Test
 	public void test(){
 		/*String text = "<!DOCTYPE html><head><meta charset='UTF-8'><title>Insert title here</title></head><h1>img html</h1><img src='img/Chrysanthemum.jpg'/><img src='img/Desert.jpg'/><img src='img/Hydrangeas.jpg'/>";
@@ -29,5 +28,10 @@ public class TestJUnit {
         while(matcher.find()){
             System.out.println(matcher.group(0));
         }*/
+//		System.out.println(dao.findCommByNo(13));
+		List<CommentVO> list = service.getCommentList(27);
+		for (CommentVO clvo : list) {
+			clvo.setReplyList(dao.getReplyList(clvo.getComment_no()));
+		}
 	}
 }

@@ -6,6 +6,7 @@ public class CommunityVO {
 	private String content;
 	private int likePosted;
 	private MemberVO memberVO;
+	private int userLike; //사용자 like 상태
 	public CommunityVO() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -19,17 +20,29 @@ public class CommunityVO {
 		this.likePosted = likePosted;
 		this.memberVO = memberVO;
 	}
+	
+	public CommunityVO(int comm_no, MemberVO memberVO) {
+		super();
+		this.comm_no = comm_no;
+		this.memberVO = memberVO;
+	}
 	public int getComm_no() {
 		return comm_no;
 	}
 	public void setComm_no(int comm_no) {
 		this.comm_no = comm_no;
 	}
-	public String gettimePosted() {
+	public String getTimePosted() {
 		return timePosted;
 	}
-	public void settimePosted(String timePosted) {
+	public void setTimePosted(String timePosted) {
 		this.timePosted = timePosted;
+	}
+	public int getUserLike() {
+		return userLike;
+	}
+	public void setUserLike(int userLike) {
+		this.userLike = userLike;
 	}
 	public String getContent() {
 		return content;
@@ -51,9 +64,9 @@ public class CommunityVO {
 	}
 	@Override
 	public String toString() {
-		return "CummunityVO [comm_no=" + comm_no + ", timePosted=" + timePosted
+		return "CommunityVO [comm_no=" + comm_no + ", timePosted=" + timePosted
 				+ ", content=" + content + ", likePosted=" + likePosted
-				+ ", memberVO=" + memberVO + "]";
+				+ ", memberVO=" + memberVO + ", userLike=" + userLike + "]";
 	}
 	
 }

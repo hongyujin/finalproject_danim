@@ -1,6 +1,5 @@
 package org.kosta.finalproject.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.kosta.finalproject.model.vo.AreaVO;

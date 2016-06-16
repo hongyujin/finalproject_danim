@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 
 import org.kosta.finalproject.model.dao.CommunityDAO;
 import org.kosta.finalproject.model.vo.CommLikeVO;
+import org.kosta.finalproject.model.vo.CommentVO;
 import org.kosta.finalproject.model.vo.CommunityVO;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,6 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public List<CommunityVO> getCommList(int rownum){
 		List<CommunityVO> list = commDAO.getCommList(rownum);
-//		List<CommLikeVO> commLikeList = commDAO.getLikePosted();
 		for (CommunityVO cvo : list) {
 			String text = cvo.getContent();
 			Pattern pattern = Pattern.compile("<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>"); //img 태그 src 추출 정규표현식
@@ -29,8 +29,6 @@ public class CommunityServiceImpl implements CommunityService {
 	            cvo.setContent(matcher.group(0));
 	        }
 		}
-		/*CommListVO lvo = new CommListVO(list, commLikeList);
-		return lvo;*/
 		return list;
 	}
 	
@@ -38,21 +36,88 @@ public class CommunityServiceImpl implements CommunityService {
 	public void registerComm(CommunityVO paramVO){
 		commDAO.registerComm(paramVO);
 	}
+
+	@Override
+	public void updateCommunity(CommunityVO paramVO){
+		commDAO.updateCommunity(paramVO);
+	}
 	
+	@Override
+	public void deleteCommunity(CommunityVO paramVO){
+		commDAO.deleteCommunity(paramVO);
+	}
+
+	/**
+	 * 1. 커뮤니티 게시판 글에 '좋아요' 버튼 클릭 이벤트 발생 시 해당 메서드가 작동된다.
+	 * 2. 해당 회원이 해당 글 번호에 이미 likePosted 값을 증가시킨 경우(클릭한 경우), 
+	 * 		likePosted 값을 삭제시킨다.
+	 * 3. 2번이 아닌 경우, likePosted 값을 증가시킨다.
+	 */
 	@Override
 	public int updateLikePosted(CommLikeVO paramVO){
 		int findNo = commDAO.findLikeByIdAndNo(paramVO);
+		int result=0;
 		if(findNo==1){
 			commDAO.deleteLikePosted(paramVO);
 		}else{
-			commDAO.updateLikePosted(paramVO);
+			result = commDAO.updateLikePosted(paramVO);
 		}
-		return commDAO.findLikeByCommNo(paramVO.getComm_no());
+//		return commDAO.findLikeByCommNo(paramVO.getComm_no());
+		return result;
 	}
 	
 	@Override
-	public int findLikeByNo(int commNo){
-		return commDAO.findLikeByCommNo(commNo);
+	public int findLikeByIdAndNo(CommLikeVO paramVO){
+		return commDAO.findLikeByIdAndNo(paramVO);
 	}
 	
+	@Override
+	public CommunityVO findCommByNo(int commNo){
+		return commDAO.findCommByNo(commNo);
+	}
+
+	/**
+	 * 커뮤니티 댓글 추가 
+	 */
+	@Override
+	public void registerComment(CommentVO paramVO){
+		commDAO.registerComment(paramVO);
+	}
+	
+	/**
+	 * 커뮤니티 댓글 수정 
+	 */
+	public int updateComment(CommentVO paramVO){
+		return commDAO.updateComment(paramVO);
+	}
+	
+	/**
+	 * 커뮤니티 댓글 삭제 
+	 */
+	@Override
+	public int deleteComment(int comment_no){
+		return commDAO.deleteComment(comment_no);
+	}
+	
+	/**
+	 * 커뮤니티 댓글 보기
+	 */
+	@Override
+	public List<CommentVO> getCommentList(int comm_no){
+		List<CommentVO> list = commDAO.getCommentList(comm_no);
+		for (CommentVO clvo : list) {
+			clvo.setReplyList(commDAO.getReplyList(clvo.getComment_no()));
+		}
+		return list;
+	}
+
+	@Override
+	public CommentVO getCommentByNo(int comm_no) {
+		return commDAO.getCommentByNo(comm_no);
+	}
+	
+/*	@Override
+	public List<ReplyVO> getReplyList(int comment_no){
+		return commDAO.getReplyList(comment_no);
+	}*/
 }

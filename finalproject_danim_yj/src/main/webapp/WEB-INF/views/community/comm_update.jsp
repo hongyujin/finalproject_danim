@@ -49,7 +49,8 @@ $(document).ready(function(){
 	});//reset click
 });
 </script>
-		<form action="comm_write.do" method="post" id="frm">
+		<form action="comm_update.do" method="post" id="frm">
+		<input type="hidden" name="comm_no" value="${commVO.comm_no }">
 		<textarea hidden="textTest" id="textTest"></textarea>
 		<table width="100%">
 				<tr>
@@ -59,7 +60,7 @@ $(document).ready(function(){
 				<tr>
 					<td>내용</td>
 					<td>
-						<textarea rows="10" cols="30" id="ir1" name="content" style="width:766px; height:412px; " placeholder="내용을 입력하세요"></textarea>
+						<textarea rows="10" cols="30" id="ir1" name="content" style="width:766px; height:412px; ">${commVO.content }</textarea>
 					</td>
 				</tr>
 				<tr>

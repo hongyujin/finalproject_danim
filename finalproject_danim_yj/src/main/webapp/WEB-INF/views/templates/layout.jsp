@@ -9,6 +9,7 @@
 <title>css를 이용한 layout</title>
 <script type="text/javascript" src="${initParam.root}resources/js/jquery-1.12.4.min.js"></script>
 <link rel="stylesheet" type="text/css" href="${initParam.root}resources/css/home.css">
+<link rel="stylesheet" href="${initParam.root}resources/bootstrap/css/bootstrap.min.css">
 </head>
 <body>
 <div id="container">

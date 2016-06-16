@@ -14,6 +14,12 @@ public class CommLikeVO {
 		this.comm_no = comm_no;
 	}
 
+	public CommLikeVO(int comm_no, String id) {
+		super();
+		this.comm_no = comm_no;
+		this.id = id;
+	}
+
 	public CommLikeVO(int comm_no, String id, int likePosted) {
 		super();
 		this.comm_no = comm_no;
