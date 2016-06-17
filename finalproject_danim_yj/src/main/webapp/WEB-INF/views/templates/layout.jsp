@@ -18,19 +18,6 @@
 	<div id="main"><tiles:insertAttribute name="main" /></div>
 	<div id="footer"><tiles:insertAttribute name="footer" /></div>
 </div>
-<%-- <table width="100%" border="1" cellpadding="5" id="container">
-<tr>
- <td colspan="2" id="header">
-	<tiles:insertAttribute name="header"/></td> 
-</tr>
-<tr>
- <td valign="top" id="left"><tiles:insertAttribute name="left"/></td> 
- <td valign="top" id="main"><tiles:insertAttribute name="main"/></td>
-</tr>
-<tr>
- <td colspan="2" id="footer"><tiles:insertAttribute name="footer"/></td> 
-</tr>
-</table> --%>
 </body>
 </html>
 

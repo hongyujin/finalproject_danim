@@ -22,7 +22,7 @@
  </style>
 
 <%-- <link rel = "stylesheet" type = "text/css" href = "${initParam.root}fontium/css/fontium.css" /> --%>
-<%-- <script type="text/javascript" src="${initParam.root}resources/js/jquery.bpopup.min.js"></script> --%>
+<script type="text/javascript" src="${initParam.root}resources/js/jquery.bpopup.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#commWrite").click(function() {

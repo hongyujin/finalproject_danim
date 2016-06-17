@@ -1,4 +1,6 @@
-package org.kosta.finalproject.model.vo;
+package org.kosta.finalproject.model.vo.community;
+
+import org.kosta.finalproject.model.vo.member.MemberVO;
 
 public class ReplyVO {
 	private int reply_no;
@@ -13,6 +15,13 @@ public class ReplyVO {
 			String content) {
 		super();
 		this.reply_no = reply_no;
+		this.commentVO = commentVO;
+		this.memberVO = memberVO;
+		this.content = content;
+	}
+	
+	public ReplyVO(CommentVO commentVO, MemberVO memberVO, String content) {
+		super();
 		this.commentVO = commentVO;
 		this.memberVO = memberVO;
 		this.content = content;

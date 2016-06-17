@@ -5,10 +5,10 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.kosta.finalproject.model.vo.CommLikeVO;
-import org.kosta.finalproject.model.vo.CommentVO;
-import org.kosta.finalproject.model.vo.CommunityVO;
-import org.kosta.finalproject.model.vo.ReplyVO;
+import org.kosta.finalproject.model.vo.community.CommLikeVO;
+import org.kosta.finalproject.model.vo.community.CommentVO;
+import org.kosta.finalproject.model.vo.community.CommunityVO;
+import org.kosta.finalproject.model.vo.community.ReplyVO;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -79,11 +79,6 @@ public class CommunityDAOImpl implements CommunityDAO {
 		return template.selectOne("community.findCommByNo",commNo);
 	}
 	
-	@Override
-	public int updateComm(CommunityVO paramVO){
-		return template.update("community.updateComm", paramVO);
-	}
-	
 	/**
 	 * 커뮤니티 댓글 추가
 	 */
@@ -122,10 +117,30 @@ public class CommunityDAOImpl implements CommunityDAO {
 	}
 	
 	/**
+	 * 커뮤니티 댓글의 댓글 추가
+	 */
+	@Override
+	public void registerReply(ReplyVO paramVO){
+		template.insert("community.registerReply",paramVO);
+	}
+	
+	/**
+	 * 커뮤니티 댓글의 댓글 삭제
+	 */
+	@Override
+	public void deleteReply(int replyNo){
+		template.delete("community.deleteReply",replyNo);
+	}
+	/**
 	 * 커뮤니티 댓글의 댓글 보기
 	 */
 	@Override
 	public List<ReplyVO> getReplyList(int comment_no){
 		return template.selectList("community.getReplyList",comment_no);
+	}
+
+	@Override
+	public int updateReply(ReplyVO paramVO) {
+		return template.update("community.updateReply",paramVO);
 	}
 }

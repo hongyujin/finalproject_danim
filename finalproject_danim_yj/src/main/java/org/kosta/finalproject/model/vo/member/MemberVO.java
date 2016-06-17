@@ -1,4 +1,4 @@
-package org.kosta.finalproject.model.vo;
+package org.kosta.finalproject.model.vo.member;
 
 public class MemberVO {
 	private String id;

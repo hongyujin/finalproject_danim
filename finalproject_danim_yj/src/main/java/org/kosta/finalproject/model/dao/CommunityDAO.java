@@ -2,10 +2,10 @@ package org.kosta.finalproject.model.dao;
 
 import java.util.List;
 
-import org.kosta.finalproject.model.vo.CommLikeVO;
-import org.kosta.finalproject.model.vo.CommentVO;
-import org.kosta.finalproject.model.vo.CommunityVO;
-import org.kosta.finalproject.model.vo.ReplyVO;
+import org.kosta.finalproject.model.vo.community.CommLikeVO;
+import org.kosta.finalproject.model.vo.community.CommentVO;
+import org.kosta.finalproject.model.vo.community.CommunityVO;
+import org.kosta.finalproject.model.vo.community.ReplyVO;
 
 public interface CommunityDAO {
 
@@ -38,8 +38,6 @@ public interface CommunityDAO {
 
 	public CommunityVO findCommByNo(int commNo);
 
-	public int updateComm(CommunityVO paramVO);
-
 	public List<CommentVO> getCommentList(int comm_no);
 
 	/**
@@ -60,8 +58,18 @@ public interface CommunityDAO {
 	public CommentVO getCommentByNo(int comm_no);
 
 	/**
+	 * 커뮤니티 댓글의 댓글 추가
+	 */
+	public void registerReply(ReplyVO paramVO);
+	
+	public void deleteReply(int replyNo);
+	/**
 	 * 커뮤니티 댓글의 댓글 보기 
 	 */
 	public List<ReplyVO> getReplyList(int comment_no);
+
+	public int updateReply(ReplyVO paramVO);
+
+
 
 }

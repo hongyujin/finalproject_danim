@@ -1,6 +1,6 @@
 package org.kosta.finalproject.model.dao;
 
-import org.kosta.finalproject.model.vo.MemberVO;
+import org.kosta.finalproject.model.vo.member.MemberVO;
 
 public interface MemberDAO {
 

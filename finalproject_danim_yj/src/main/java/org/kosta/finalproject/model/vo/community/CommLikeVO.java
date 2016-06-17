@@ -1,4 +1,4 @@
-package org.kosta.finalproject.model.vo;
+package org.kosta.finalproject.model.vo.community;
 
 public class CommLikeVO {
 	private int comm_no;

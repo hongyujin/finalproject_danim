@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.kosta.finalproject.model.dao.CommunityDAO;
 import org.kosta.finalproject.model.service.CommunityService;
-import org.kosta.finalproject.model.vo.CommentVO;
+import org.kosta.finalproject.model.vo.community.CommentVO;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 

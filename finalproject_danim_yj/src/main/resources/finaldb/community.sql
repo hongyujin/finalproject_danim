@@ -27,7 +27,7 @@ create sequence comment_seq nocache
 
 drop table commcomment
 create table commcomment(
-	comment_no number primary key,
+	comment_no number primary key on delete cascade,
 	comm_no number not null,
 	id varchar2(100) not null,
 	content clob not null,
@@ -45,13 +45,10 @@ create table replycomment(
 	comm_no number not null,
 	id varchar2(100) not null,
 	content clob not null,
-	constraint fk_reply_no foreign key(comment_no) references commcomment(comment_no),
+	constraint fk_reply_no foreign key(comment_no) references commcomment(comment_no) on delete cascade,
 	constraint fk_reply_id foreign key(id) references member(id),
 	constraint fk_reply_no2 foreign key(comm_no) references community(comm_no)
 )
-
-
-
 
 ---------picture table 추가(2차)---------
 drop sequence comm_pic_seq;
@@ -105,23 +102,25 @@ update commcomment set content='댓글수정이에여22' where comment_no=2
 delete COMMCOMMENT where comment_no=4 
 
 select c.comment_no,c.comm_no,m.id,m.nickname,c.content 
-from commcomment c, member m where c.id=m.id and comm_no=10 order by c.comment_no asc
+from commcomment c, member m where c.id=m.id and comm_no=27 order by c.comment_no asc
 
 select c.comment_no,c.comm_no,m.id,m.nickname,c.content 
 		from commcomment c, member m
 		where c.id=m.id and comment_no=3
 		order by c.comment_no desc
 
-		
 --reply 연습
 insert into replycomment(reply_no,comment_no,comm_no,id,content) values(comment_reply_seq.nextval,49,27,'test','대댓글22')
-
+select * from replycomment
 select r.reply_no,r.comment_no, c.content ,r.comm_no,m.id,m.nickname,r.content 
 		from replycomment r, commcomment c, member m
 		where c.id=m.id and c.comment_no=r.comment_no and r.comm_no=27
 		order by r.reply_no desc
 		
 select r.reply_no,r.comment_no,r.comm_no,m.id,m.nickname,r.content 
-		from replycomment r, member m
-		where r.id=m.id and r.comm_no=27
-		order by r.reply_no desc		
+from replycomment r, member m
+where r.id=m.id and r.comment_no=1
+order by r.reply_no desc
+delete replycomment where reply_no=12
+
+update replycomment set content='댓글수정이에여22' where reply_no=2

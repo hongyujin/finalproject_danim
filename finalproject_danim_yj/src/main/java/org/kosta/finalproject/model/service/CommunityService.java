@@ -2,9 +2,10 @@ package org.kosta.finalproject.model.service;
 
 import java.util.List;
 
-import org.kosta.finalproject.model.vo.CommLikeVO;
-import org.kosta.finalproject.model.vo.CommentVO;
-import org.kosta.finalproject.model.vo.CommunityVO;
+import org.kosta.finalproject.model.vo.community.CommLikeVO;
+import org.kosta.finalproject.model.vo.community.CommentVO;
+import org.kosta.finalproject.model.vo.community.CommunityVO;
+import org.kosta.finalproject.model.vo.community.ReplyVO;
 
 public interface CommunityService {
 
@@ -26,6 +27,8 @@ public interface CommunityService {
 
 	public int deleteComment(int comment_no);
 
+	public int updateComment(CommentVO paramVO);
+	
 	public void registerComment(CommentVO paramVO);
 
 	public CommentVO getCommentByNo(int comm_no);
@@ -33,5 +36,11 @@ public interface CommunityService {
 //	public List<ReplyVO> getReplyList(int comment_no);
 
 //	public List<CommLikeVO> getLikePosted();
+	
+	public void registerReply(ReplyVO paramVO);
+
+	public void deleteReply(int replyNo);
+
+	public int updateReply(ReplyVO paramVO);
 
 }

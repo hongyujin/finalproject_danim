@@ -1,4 +1,6 @@
-package org.kosta.finalproject.model.vo;
+package org.kosta.finalproject.model.vo.community;
+
+import org.kosta.finalproject.model.vo.member.MemberVO;
 
 public class CommunityVO {
 	private int comm_no;
@@ -21,6 +23,10 @@ public class CommunityVO {
 		this.memberVO = memberVO;
 	}
 	
+	public CommunityVO(int comm_no) {
+		super();
+		this.comm_no = comm_no;
+	}
 	public CommunityVO(int comm_no, MemberVO memberVO) {
 		super();
 		this.comm_no = comm_no;

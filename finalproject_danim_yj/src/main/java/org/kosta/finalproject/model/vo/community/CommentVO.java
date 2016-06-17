@@ -1,4 +1,4 @@
-package org.kosta.finalproject.model.vo;
+package org.kosta.finalproject.model.vo.community;
 
 import java.util.List;
 
@@ -14,6 +14,12 @@ public class CommentVO {
 		// TODO Auto-generated constructor stub
 	}
 	
+	public CommentVO(int comment_no, CommunityVO communityVO) {
+		super();
+		this.comment_no = comment_no;
+		this.communityVO = communityVO;
+	}
+
 	public CommentVO(int comment_no, CommunityVO communityVO,
 			String content) {
 		super();

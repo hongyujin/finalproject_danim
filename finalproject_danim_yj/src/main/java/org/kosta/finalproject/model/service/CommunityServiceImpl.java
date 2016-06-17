@@ -7,9 +7,10 @@ import java.util.regex.Pattern;
 import javax.annotation.Resource;
 
 import org.kosta.finalproject.model.dao.CommunityDAO;
-import org.kosta.finalproject.model.vo.CommLikeVO;
-import org.kosta.finalproject.model.vo.CommentVO;
-import org.kosta.finalproject.model.vo.CommunityVO;
+import org.kosta.finalproject.model.vo.community.CommLikeVO;
+import org.kosta.finalproject.model.vo.community.CommentVO;
+import org.kosta.finalproject.model.vo.community.CommunityVO;
+import org.kosta.finalproject.model.vo.community.ReplyVO;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -17,6 +18,9 @@ public class CommunityServiceImpl implements CommunityService {
 	@Resource
 	private CommunityDAO commDAO;
 	
+	/**
+	 * 커뮤니티 게시판 리스트 추출
+	 */
 	@Override
 	public List<CommunityVO> getCommList(int rownum){
 		List<CommunityVO> list = commDAO.getCommList(rownum);
@@ -87,6 +91,7 @@ public class CommunityServiceImpl implements CommunityService {
 	/**
 	 * 커뮤니티 댓글 수정 
 	 */
+	@Override
 	public int updateComment(CommentVO paramVO){
 		return commDAO.updateComment(paramVO);
 	}
@@ -114,6 +119,21 @@ public class CommunityServiceImpl implements CommunityService {
 	@Override
 	public CommentVO getCommentByNo(int comm_no) {
 		return commDAO.getCommentByNo(comm_no);
+	}
+
+	@Override
+	public void registerReply(ReplyVO paramVO) {
+		commDAO.registerReply(paramVO);
+	}
+	
+	@Override
+	public void deleteReply(int replyNo) {
+		commDAO.deleteReply(replyNo);
+	}
+
+	@Override
+	public int updateReply(ReplyVO paramVO) {
+		return commDAO.updateReply(paramVO);
 	}
 	
 /*	@Override
